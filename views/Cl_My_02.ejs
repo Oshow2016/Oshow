@@ -1,0 +1,15 @@
+<% for(var i = 0;i<result2.length;i++){%>
+	<div class='reservation_card<%= result2[i].isShow%>'>
+	<label>날짜 : <%= result2[i].reservation_date + result2[i].reservation_time%>시 ~ <%=  result2[i].reservation_time+result2[i].runtime%>시</label><p /><p />
+	<label>레스토랑 : <%= result2[i].restaurant_name%></label><p />
+	<label>메뉴 : <%= result2[i].menu%></label><p />
+	<label>테이블 : <%= result2[i].table_no%></label><p />
+	<label>예약금 : <%= result2[i].deposit%></label><p />
+	<label>쇼 : <%if(result2[i].isShow==0){%>
+								쇼
+							<%}else{%>
+								노쇼
+							<%}%>
+	</label>
+	</div>
+<%}%>

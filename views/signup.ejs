@@ -1,0 +1,113 @@
+<!-- precondition for using bootstrap framework -->
+<!doctype html>
+<html>
+<head>
+	<title>OSHOW</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<style>
+		body 		{ padding-top:80px; }
+	</style>
+</head>
+
+<div class="container">
+<div class="col-sm-4 col-sm-offset-4">
+	<h1>회원가입</h1><br>
+	  <ul class="nav nav-tabs">
+	    <li class="active"><a data-toggle="tab" href="#cl_signup">일반 회원</a></li>
+	    <li><a data-toggle="tab" href="#ow_signup">사업자 회원</a></li>
+	  </ul>
+	<br>
+	
+	<!-- ------------ -->
+	<!-- client signup-->
+	<!-- ------------ -->
+    <div class="tab-content">
+	    <div id="cl_signup" class="tab-pane fade in active">
+	    <br>
+		<!-- SignUp FORM -->
+		<form action="/signup" method="post">
+			<input type="hidden" name="member_type" value="customer">
+			<div class="row">
+			<p class="text-muted text-center">페이스북 또는 구글 계정으로 회원가입이 가능합니다.</p>
+        	<div class="col-xs-6 col-sm-6 col-md-6">
+        	<a href="/naver-login" class="btn btn-lg btn-success btn-block">Naver</a>
+        	</div>
+        	<div class="col-xs-6 col-sm-6 col-md-6">
+        	<a href="/google-login" class="btn btn-lg btn-danger btn-block">Google</a>
+        	</div>
+     		</div>
+     		<div class="login-or">
+     		  <hr class="hr-or">
+     		</div>
+			<!-- show any messages that come back with authentication -->
+			<% if (message.length > 0) { %>
+			<div class="alert alert-danger"><%= message %></div>
+			<% } %>
+
+			<div class="form-group">
+				<input type="email" class="form-control" autofocus autocomplete="off" maxlength="25" name="id" placeholder="Email" required>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" autofocus minlength="8" maxlength="25" name="password" placeholder="PASSWORD" required>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" autofocus autocomplete="off" maxlength="20" name="name" placeholder="이름 (예:이순신)" required>
+			</div>
+			<div class="form-group">
+				<input type="tel" class="form-control" autofocus autocomplete="off" maxlength="11" name="tel" placeholder="'휴대폰 번호 (예:01098769876)" required>
+			</div>
+			<p class="small">회원가입을 하면 OSHOW의 <a href="/login">서비스 약관</a>, <a href="/login">결제 서비스 약관</a>, <a href="/login">개인정보 취급방침</a>, <a href="/login">예약금 환불 정책</a>에 동의하는 것으로 간주됩니다.</p>
+			<div style="float:right;">
+			<button type="submit" class="btn btn btn-primary">회원가입</button>
+			</div>
+			<br>
+			<hr>
+			<p class="small">계정이 이미 있으시다구요? <a href="/login">Login</a></p>
+			<p class="small">Home으로 돌아가기 <a href="/">Home</a></p>
+		</form>
+		</div>
+		
+		<!-- ------------ -->
+		<!-- owner signup -->
+		<!-- ------------ -->
+	    <div id="ow_signup" class="tab-pane fade">
+	    <!-- show any messages that come back with authentication -->
+		<% if (message.length > 0) { %>
+			<div class="alert alert-danger"><%= message %></div>
+		<% } %>
+		<br>
+		<!-- SignUp FORM -->
+		<form action="/signup" method="post">
+		<input type="hidden" name="member_type" value="owner">
+			<div class="form-group">
+				<input type="email" class="form-control" autofocus autocomplete="off" maxlength="25" name="id" placeholder="Email" required>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" autofocus minlength="8" maxlength="25" name="password" placeholder="PASSWORD" required>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" name="name" autofocus autocomplete="off" maxlength="20" placeholder="대표자 이름 (예:이순신)" required>
+			</div>
+			<div class="form-group">
+				<input type="tel" class="form-control" name="tel" autofocus autocomplete="off" maxlength="11" placeholder="휴대폰 번호(예:01012345678)" required>
+			</div>
+			
+			<p class="small">회원가입을 하면 OSHOW의 <a href="/login">서비스 약관</a>, <a href="/login">결제 서비스 약관</a>, <a href="/login">개인정보 취급방침</a>, <a href="/login">예약금 환불 정책</a>에 동의하는 것으로 간주됩니다.</p>
+			<div style="float:right;">
+			<button type="submit" class="btn btn btn-primary">회원가입</button>
+			</div>
+		</form>
+		<br>
+		<hr>
+		<p class="small">계정이 이미 있으시다구요? <a href="/login">Login</a></p>
+		<p class="small">Home으로 돌아가기 <a href="/">Home</a></p>
+		</div>
+</div></div></div>
+</body>
+</html>

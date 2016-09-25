@@ -1,0 +1,22 @@
+img{
+	width:1000px;
+	height:700px;
+}
+
+#picture {
+	width:1000px;
+	height:700px;
+	border:5px solid #CCC; 
+}
+
+.table p{
+	display:none;
+}
+
+.table:hover{
+	cursor:pointer;	
+}
+
+.table:hover p{
+	display:block;
+}

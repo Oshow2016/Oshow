@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/reservation_accordion.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/overlay.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/calander.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/pay.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="https://service.iamport.kr/js/iamport.payment-1.1.1.js"></script>
+	<script src="javascripts/overlay.js"></script>
+	<script src="javascripts/menu.js"></script>
+	<script src="javascripts/reservation.js"></script>
+</head>
+<body ng-app="reservation" ng-controller="reservationController as rc" ng-init="rc.init('<%= restaurant_no%>')" onload="overlay()">
+	<% include ./Cl_Resevation.ejs %>
+</body>
+</html>

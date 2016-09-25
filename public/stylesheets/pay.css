@@ -1,0 +1,12 @@
+
+#pay {
+	height: 80%;
+}
+#pay th{
+	background-color: #ffffff;
+	padding: 30px;
+	margin: 10px;
+}
+#reservation_info {
+	line-height: 150%;
+}

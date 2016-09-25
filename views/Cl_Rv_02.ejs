@@ -1,0 +1,23 @@
+<select ng-model="rc.reservation_time" id="reservation_time" ng-click="rc.showTable()">
+</select>
+
+<select ng-model="rc.seat">
+	<option value="">---인원수---</option>
+	<option value="1">1 명</option>
+	<option value="2">2 명</option>
+	<option value="3">3 명</option>
+	<option value="4">4 명</option>
+	<option value="5">5 명</option>
+	<option value="6">6 명</option>
+	<option value="7">7 명</option>
+	<option value="8">8 명</option>
+	<option value="9">9 명</option>
+	<option value="10">10 명</option>
+	<option value="show">직접 입력</option>
+</select>
+
+<textarea ng-show ="rc.seat=='show'" ng-model="rc.seats" id="setSeats"></textarea>
+
+<%- include('../public/html/'+restaurant_no+'.ejs')%>
+
+

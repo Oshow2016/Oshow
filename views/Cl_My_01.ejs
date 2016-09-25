@@ -1,0 +1,28 @@
+<% for(var i = 0;i<result.length;i++){%>
+<div class="reservation_card" >
+	<label>날짜 : <%= result[i].reservation_date + result[i].reservation_time%>시 ~ <%=  result[i].reservation_time+result[i].runtime%>시</label><p /><p />
+	<label>레스토랑 : <%= result[i].restaurant_name%></label><p />
+	<label>메뉴 : <%= result[i].menu%></label><p />
+	<label>테이블 : <%= result[i].table_no%></label><p />
+	<label>예약금 : <%= result[i].deposit%></label>
+	<button class="reservation_cancle" value='<%= result[i].reservation_no%>'> 예약 취소 </button>
+</div>
+<%}%>
+
+<script>
+	$(".reservation_cancle").click(function(){
+		$.ajax({
+			url: 'http://127.0.0.1:3000/myPage/cancle',
+			dataType: 'json',
+			type: 'POST',
+			data: {'reservation_no': $(this).val()},
+			success: function(result) {
+				window.alert("예약 취소되었습니다.");
+				location.reload(true);
+			},
+			error:function(request,status,error) {
+				window.alert(request.status);
+			}
+		});
+	});
+</script>

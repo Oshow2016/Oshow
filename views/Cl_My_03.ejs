@@ -1,0 +1,16 @@
+
+<form action="myPage/cl_My_03" method="post">
+<label for="name">이름 </label><br>
+<input type="text" name = "name" maxlength="25" value='<%= info[0].customer_name%>'></input>
+<p>
+<label for="id" maxlength="25">아이디 </label><br>
+<input type="text" name = "id" readonly maxlength="25" value='<%= info[0].customer_id%>'></input>
+<p>
+<label for="id" maxlength="25">비밀번호 </label><br>
+<input type="password" name = "password" maxlength="25"></input>
+<p>
+<label for="telephone" maxlength="11">전화번호 </label><br/>
+<input type="text" id="tel" name = "telephone"></input>
+<p>
+<button type="submit" onclick="window.alert("성공적으로 수정되었습니다.)">수정</button>
+</form>

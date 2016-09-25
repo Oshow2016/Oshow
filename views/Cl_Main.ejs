@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<title>OSHOW</title>
+<head>
+ <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+ <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+ <meta charset="utf-8">
+ <link type="text/css" href="stylesheets/main.css" rel="stylesheet">
+ <script src="/jquery/jquery.js"></script>
+ <script src="http://dinbror.dk/bpopup/assets/jquery.easing.1.3.js"></script>
+ <script src="http://dinbror.dk/bpopup/assets/jquery.bpopup-0.9.4.min.js"></script>
+ <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=ca7519cee08a0579445bd3dc990eec8b&amp;libraries=services,clusterer"></script>
+</head>
+
+<body>
+  <% if (message.length > 0) { %>
+  <div class="alert alert-danger"><%= message %></div>
+  <% } %>
+  <% if (user==undefined) { %>
+  <div id="header">
+   <input type="button" id="login" value="LogIn" class="header">
+   <input type="button" id="signup" value="SignUp" class="header">
+ </div>
+ <% } %>
+
+ <% if (user!=undefined) { %>
+ <div id="header">
+  <input type="button" id="logout" value="LogOut" class="header">
+  <input type="button" id="mypage" value="MyPage" class="header">
+</div>
+<% } %>
+
+<div id="search">
+  <h1><span id="O">O</span><span id="show">Show</span></h1>
+  <div id="search-wrap">
+    <input type="text" maxlength="128" name="search_block_form">
+    <input type="image" src="enter_key.png" style="height:30px;width:30px;vertical-align:middle">
+  </div><br>
+  <label>지역검색
+    <input type="radio" name="cc" value="region" checked="checked">
+  </label>
+  <label>상호검색
+    <input type="radio" name="cc" value="shop">
+  </label>
+  <label>위치기반
+    <input type="radio" name="cc" value="location">
+  </label>
+  <div id="result">
+    <ul></ul>
+  </div>
+  <div id="bottom"></div>
+  <div id="window"><a class="b-close">x</a></div>
+</div>
+<script type="text/javascript" src="javascripts/cl_main.js"></script>
+</body>
+</html>

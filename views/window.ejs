@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+  <script>
+    var currentImage;
+    var currentIndex = -1;
+    var interval;
+    function showImage(index){
+        if(index < $('#bigPic img').length){
+          var indexImage = $('#bigPic img')[index]
+          if(currentImage){
+
+            if(currentImage != indexImage ){
+              $(currentImage).css('z-index',2);
+              clearTimeout(myTimer);
+              $(currentImage).fadeOut(250, function() {
+                    myTimer = setTimeout("showNext()", 3000);
+                    $(this).css({'display':'none','z-index':1})
+                  });
+            }
+          }
+          $(indexImage).css({'display':'block', 'opacity':1});
+          currentImage = indexImage;
+          currentIndex = index;
+          $('#thumbs li').removeClass('active');
+          $($('#thumbs li')[index]).addClass('active');
+        }
+    }
+
+    function showNext(){
+        var len = $('#bigPic img').length;
+        var next = currentIndex < (len-1) ? currentIndex + 1 : 0;
+        showImage(next);
+    }
+
+    var myTimer;
+
+    $(document).ready(function() {
+      $('#reservation').on('click',function() {
+        $.ajax({
+      			url:"http://localhost:3000/clientMain/reservate",
+      			success:function(data){
+      							// $('.b-close').append().detach();
+      							$('#wrapper').children().detach();
+                    $('#wrapper').append(data);
+      				}
+      	});
+      });
+
+      myTimer = setTimeout("showNext()", 3000);
+      showNext(); //loads first image
+      $('#thumbs li').bind('click',function(e){
+            var count = $(this).attr('rel');
+            showImage(parseInt(count)-1);
+        });
+    });
+  </script>
+</head>
+<body>
+    <div id='wrapper'>
+      <div id='body'>
+        <div id='menu'>
+          <ul>
+            <% for(var i=0;i<rows.length-1;i++){ %>
+            <li>
+              <%= rows[i].menu_name %> <%= rows[i].price %> <%= rows[i].menu_descriptional %>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+
+        <div id='bigPic'>
+          <img src="1.jpg" alt="">
+          <img src="2.jpg" alt="">
+          <img src="3.jpg" alt="">
+          <img src="4.jpg" alt="">
+          <img src="5.jpg" alt="">
+          <img src="6.jpg" alt="">
+          <img src="7.jpg" alt="">
+          <img src="8.jpg" alt="">
+        </div>
+
+        <ul id='thumbs'>
+          <li class='active' rel='1'>
+            <img src="1_thumb.jpg" alt="">
+          </li>
+          <li class='active' rel='2'>
+            <img src="2_thumb.jpg" alt="">
+          </li>
+          <li class='active' rel='3'>
+            <img src="3_thumb.jpg" alt="">
+          </li>
+          <li class='active' rel='4'>
+            <img src="4_thumb.jpg" alt="">
+          </li>
+          <li class='active' rel='5'>
+            <img src="5_thumb.jpg" alt="">
+          </li>
+          <li class='active' rel='6'>
+            <img src="6_thumb.jpg" alt="">
+          </li>
+          <li class='active' rel='7'>
+            <img src="7_thumb.jpg" alt="">
+          </li>
+          <li class='active' rel='8'>
+            <img src="8_thumb.jpg" alt="">
+          </li>
+        </ul>
+
+        <div id='report'>
+        	레스토랑 정보 표시!
+        </div>
+        <%if(user.auth=='success'){%>
+        <input type="button" value="예약" id="reservation" style="cursor:pointer"  onclick="location.href='http://127.0.0.1:3000/reservation?no='+<%= rows[rows.length-1] %>";>
+        <%}if(user.auth!='success'){%>
+        <input type="button" value="예약" id="reservation" style="cursor:pointer"  onclick="window.alert('이메일 인증을 해주세요. 가입시 이메일로 인증코드가 전송되었습니다.')";>
+        <%}if(!user) {%>
+        <input type="button" value="예약" id="reservation" style="cursor:pointer"  onclick="window.alert('로그인 후 이용해주세요.')";>
+        <%}%>
+        </div>
+  </div>
+
+</body>
+</html>

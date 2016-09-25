@@ -1,0 +1,39 @@
+
+<div id="picture" >
+	<img src='<%=pic_url%>''>
+	<div id="table1" class="table ui-draggable ui-draggable-handle ui-resizable" style="position: absolute; border: 5px solid red; top: 49px; left: 56px; width: 142px; height: 155px;" ng-click="rc.table =1">
+		<p>
+			table1
+		</p>
+	</div>
+	<div id="table2" class="table ui-draggable ui-draggable-handle ui-resizable" style="position: absolute; border: 5px solid red; top: 241px; left: 63px; width: 103px; height: 80px;" ng-click="rc.table=2">
+		<p>
+			table2
+		</p>
+	</div>
+	<div id="table3" class="table ui-draggable ui-draggable-handle ui-resizable" style="position: absolute; border: 5px solid red; top: 364px; left: 108px; width: 103px; height: 80px;" ng-click="rc.table=3">
+		<p>
+			table3
+		</p>
+	</div>
+</div>
+
+<script>
+	$('.table').each(function(){
+		$(this).css("border","none");
+	});
+
+	$('.table').on('mouseover',function(e){
+		$(this).css("border","5px solid red");
+	});
+
+	$('.table').on('mouseout',function(e){
+		$(this).css("border","none");
+	});
+
+	$('.table').on('click',function(e){
+		$('.table').css("background","none");
+		$(this).css("background","#fff");
+	});
+
+</script>

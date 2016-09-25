@@ -1,0 +1,36 @@
+
+.tab-wrap { width:800px ; padding:0; background-color:#fff; border-style:solid; border-width:1px; border-color:#E1E1E1 #D4D4D4 #D4D4D4; border-radius:5px; box-shadow:0 1px 3px rgba(0, 0, 0, 0.15); }
+.tabs { overflow: hidden; }
+.tabs li, .tabs a { -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; }
+.tabs li { background: #fff; display: inline; float: left; list-style: none; margin: 0; padding: 1px 1px 0; text-align: center; width: 250px; }
+.tabs a { color: #333; display: block; padding: 5px 0; text-decoration: none; background-color:#ccc; }
+.tabs a.current { background-color: #06f; color: #fff; }
+.tabs a:hover { background: #666; color: #fff; }
+* html .tabs a, * html #tab_content_primary_01 a { height: 1%; } /* For IE6. */
+.tab_content_wrap { position:relative; background-color: #fff;  }
+#R_INFO a:hover { color:#defcfa; text-decoration:underline; }
+
+.header{
+	float: right;
+	margin-top:30px;
+	margin-right:10px;
+	width:100px;
+	height:30px;
+	border:none;
+	background-color: #CCC;
+	color: white;
+	border:1px solid #50b4ff;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 16px;
+}
+#restaurant_info{
+	padding:10px
+	margin-top:60px;
+	padding: 100px;
+	font:  "Lucida Grande", Helvetica, Arial, sans-serif;
+	text-align:center;
+	color:#ffffff;
+	
+}

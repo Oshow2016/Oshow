@@ -1,0 +1,21 @@
+<table id ="pay">
+	<tr>
+		<th id="reservation_info"></th>
+		<th>
+			deposit 금액 :
+			<label id="deposit"></label>원
+			<p / ><p / ><p / >
+
+			예약 전화번호 :
+			<textarea ng-model="rc.telephone">01012345678</textarea>
+			<p />
+			<label>결제수단 : </label>
+			<p />
+			<p />
+			<input type="radio" ng-model="rc.payment" value="신용카드"> 카카오페이
+			<button ng-click="rc.pay()">결제하기</button>
+		</th>
+		</tr>
+	</table>
+
+

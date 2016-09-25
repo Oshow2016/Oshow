@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
+ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+   <head>
+       <title><%= title %></title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta http-equiv="Content-Style-Type" content="text/css" />
+      <meta http-equiv="Content-Script-Type" content="text/javascript" />
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+      <link rel='stylesheet' href='stylesheets/Ow_Rg_01.css' /> 
+      
+   <!-- 휴무일 DATEPICKER -->   
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+  <!------ 아코디언 ------->
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script>
+  $( function() {
+    $( "#holiday_date" ).datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true, 
+      changeYear: true,
+      minDate: '-100y', // 현재날짜로부터 100년이전까지 년을 표시한다.
+      yearRange: 'c-100:c+30', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
+      monthNamesShort : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+      monthNames : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] ,
+      mode:'multiple',
+      minDate:0
+});
+  } );
+  </script>
+ <script type="text/javascript">
+
+   // 탭.
+   function init_tabs() {
+      $(".tab_content").css("display","none");
+      if (!$('ul.tabs').length) { return; }
+      $('div.tab_content_wrap').each(function() {
+         $(this).find('div.tab_content:first').show();
+      });
+      $('ul.tabs a').click(function() {
+         if (!$(this).hasClass('current')) {
+            $(this).addClass('current').parent('li').siblings('li').find('a.current').removeClass('current');
+            $($(this).attr('href')).show("1000").siblings('div.tab_content').hide("1000");
+         }
+         this.blur();
+         return false;
+      });
+   }
+   $(document).ready(function() {
+      init_tabs();
+   });
+   
+</script>
+<script type="text/JavaScript">
+    function onWriteSubmit(tag)
+    {
+        if ( $("#restaurant_name").val().trim() == "" )
+        {
+            var message = "레스토랑의 상호명을 입력해 주세요";
+            $("#restaurant_name").val("");
+            $("#restaurant_name").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#restaurant_opening_time").val().trim() == "" )
+        {
+            var message = "오픈 시간을 입력해 주세요";
+            $("#restaurant_opening_time").val("");
+            $("#restaurant_opening_time").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#restaurant_closing_time").val().trim() == "" )
+        {
+            var message = "마감 시간을 입력해 주세요";
+            $("#restaurant_closing_time").val("");
+            $("#restaurant_closing_time").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#holiday_date").val().trim() == "" )
+        {
+            var message = "휴무일을 입력해 주세요";
+            $("#holiday_date").val("");
+            $("#holiday_date").focus();
+            alert(message);
+           return false;
+        }
+        if ( $("#restaurant_type").val().trim() == "" )
+        {
+            var message = "레스토랑의 타입을 입력해 주세요";
+            $("#restaurant_type").val("");
+            $("#restaurant_type").focus();
+            alert(message);
+              return false;
+        }
+        if ( $("#restaurant_address").val().trim() == "" )
+        {
+            var message = "주소를 입력해 주세요";
+            $("#restaurant_address").val("");
+            $("#restaurant_address").focus();
+            alert(message);
+           return false;
+        }
+        if ( $("#restaurant_tel").val().trim() == "" )
+        {
+            var message = "전화번호를 입력해 주세요";
+            $("#restaurant_tel").val("");
+            $("#restaurant_tel").focus();
+            alert(message);
+           return false;
+        }
+        if ( $("#restaurant_deposit_menu").val().trim() == "" )
+        {
+            var message = "총 메뉴가격에 따른 deposit을 정해주세요  입력해 주세요";
+            $("#restaurant_deposit_menu").val("");
+            $("#restaurant_deposit_menu").focus();
+            alert(message);
+           return false;
+        }
+        
+        if ( $("#restaurant_deposit_member").val().trim() == "" )
+        {
+            var message = "총 인원에 따른 deposit을 입력해 주세요";
+            $("#restaurant_deposit_member").val("");
+            $("#restaurant_deposit_member").focus();
+            alert(message);
+           return false;
+        }
+        var returnValue = alert("저장되었습니다.");
+
+    }
+    
+    function onWriteSubmitmenu(tag)
+    {
+     if ( $("#menu_picture").val().trim() == "" )
+        {
+            var message = "메뉴사진을 첨부해 주세요";
+            $("#menu_picture").val("");
+            $("#menu_picture").focus();
+            alert(message);
+           return false;
+        }
+        var returnValue = alert("메뉴가 저장되었습니다!");
+       }
+       
+       function onWriteSubmittable(tag)
+    {
+     if ( $("#table_image").val().trim() == "" )
+        {
+            var message = "매장 테이블 구성도 에 필요한 사진을 첨부해 주세요!";
+            $("#table_image").val("");
+            $("#table_image").focus();
+            alert(message);
+           return false;
+        }
+        var returnValue = alert("사진이 저장되었습니다!");
+       }
+</script>
+
+<script>
+   function resetForm()
+   {
+   var message = "초기화 합니다.";
+   alert(message);
+   
+   }
+
+</script>
+<!------------- 0829 아코디언으로 수정 -------------------->
+<script>
+jQuery( document ).ready( function() {
+        $( '#restaurant_info' ).accordion({
+		  active: false,
+          collapsible: true,
+		  heightStyle: "content" 
+        } );
+      } );
+</script>
+   </head>
+<body>
+<!-- 탭시작 -->
+<center>
+ <% if (owner_auth!='success') { %>
+	  <div class="alert alert-danger">이메일을 인증하지 않았습니다. 이메일로 전송한 인증코드를 확인하세요.</div>
+	  <% } 
+%>
+<div id="header">
+ 		 <input type="button" id="logout" value="LogOut" class="header">
+ 		 <input type="button" id="home" value="Home"  class="header">
+</div>
+<div id = "restaurant_info">
+      <p>레스토랑 정보</p>
+      <div >
+            <form method="POST" 
+            enctype ="multipart/form-data" 
+            action="/ownerPage"
+             name="r_info" 
+             id="registration" 
+             onsubmit="return onWriteSubmit(this);">
+            <center>
+            상호명 *<br> &nbsp; <input type="text" name="restaurant_name" id="restaurant_name" value="<%=row.restaurant_name%>"><br/>
+            오픈시간 *<br> &nbsp;
+            <select name="restaurant_opening_time" id="restaurant_opening_time" value="<%=row.restaurant_opening_time%>">
+               <option value="00:00:00">00:00</option>
+               <option value="00:30:00">00:30</option>
+               <option value="01:00:00">01:00</option>
+               <option value="01:30:00">01:30</option>
+			   <option value="02:00:00">02:00</option>
+               <option value="02:30:00">02:30</option>
+               <option value="03:00:00">03:00</option>
+               <option value="03:30:00">03:30</option>
+			   <option value="04:00:00">04:00</option>
+               <option value="04:30:00">04:30</option>
+               <option value="05:00:00">05:00</option>
+               <option value="05:30:00">05:30</option>
+			   <option value="06:00:00">06:00</option>
+               <option value="06:30:00">06:30</option>
+               <option value="07:00:00">07:00</option>
+               <option value="07:30:00">07:30</option>
+			   <option value="08:00:00">08:00</option>
+               <option value="08:30:00">08:30</option>
+               <option value="09:00:00">09:00</option>
+               <option value="09:30:00">09:30</option>
+			   <option value="10:00:00">10:00</option>
+               <option value="10:30:00">10:30</option>
+               <option value="11:00:00">11:00</option>
+               <option value="11:30:00">11:30</option>
+			   <option value="12:00:00">12:00</option>
+               <option value="12:30:00">12:30</option>
+               <option value="13:00:00">13:00</option>
+               <option value="13:30:00">13:30</option>
+			   <option value="14:00:00">14:00</option>
+               <option value="14:30:00">14:30</option>
+               <option value="15:00:00">15:00</option>
+               <option value="15:30:00">15:30</option>
+			   <option value="16:00:00">16:00</option>
+               <option value="16:30:00">16:30</option>
+			   <option value="17:00:00">17:00</option>
+               <option value="17:30:00">17:30</option>
+               <option value="18:00:00">18:00</option>
+               <option value="18:30:00">18:30</option>
+			   <option value="19:00:00">19:00</option>
+               <option value="19:30:00">19:30</option>
+               <option value="20:00:00">20:00</option>
+               <option value="20:30:00">20:30</option>
+			   <option value="21:00:00">21:00</option>
+               <option value="21:30:00">21:30</option>
+               <option value="22:00:00">22:00</option>
+               <option value="22:30:00">22:30</option>
+			   <option value="23:00:00">23:00</option>
+               <option value="23:30:00">23:30</option>
+              </select><br/> 
+            마감시간 *<br/> &nbsp; 
+             <select name="restaurant_closing_time" id="restaurant_closing_time" value="<%=row.restaurant_closing_time%>">
+			   <option value="00:00:00">00:00</option>
+               <option value="00:30:00">00:30</option>
+               <option value="01:00:00">01:00</option>
+               <option value="01:30:00">01:30</option>
+			   <option value="02:00:00">02:00</option>
+               <option value="02:30:00">02:30</option>
+               <option value="03:00:00">03:00</option>
+               <option value="03:30:00">03:30</option>
+			   <option value="04:00:00">04:00</option>
+               <option value="04:30:00">04:30</option>
+               <option value="05:00:00">05:00</option>
+               <option value="05:30:00">05:30</option>
+			   <option value="06:00:00">06:00</option>
+               <option value="06:30:00">06:30</option>
+               <option value="07:00:00">07:00</option>
+               <option value="07:30:00">07:30</option>
+			   <option value="08:00:00">08:00</option>
+               <option value="08:30:00">08:30</option>
+               <option value="09:00:00">09:00</option>
+               <option value="09:30:00">09:30</option>
+			   <option value="10:00:00">10:00</option>
+               <option value="10:30:00">10:30</option>
+               <option value="11:00:00">11:00</option>
+               <option value="11:30:00">11:30</option>
+			   <option value="12:00:00">12:00</option>
+               <option value="12:30:00">12:30</option>
+               <option value="13:00:00">13:00</option>
+               <option value="13:30:00">13:30</option>
+			   <option value="14:00:00">14:00</option>
+               <option value="14:30:00">14:30</option>
+               <option value="15:00:00">15:00</option>
+               <option value="15:30:00">15:30</option>
+			   <option value="16:00:00">16:00</option>
+               <option value="16:30:00">16:30</option>
+			   <option value="17:00:00">17:00</option>
+               <option value="17:30:00">17:30</option>
+               <option value="18:00:00">18:00</option>
+               <option value="18:30:00">18:30</option>
+			   <option value="19:00:00">19:00</option>
+               <option value="19:30:00">19:30</option>
+               <option value="20:00:00">20:00</option>
+               <option value="20:30:00">20:30</option>
+			   <option value="21:00:00">21:00</option>
+               <option value="21:30:00">21:30</option>
+               <option value="22:00:00">22:00</option>
+               <option value="22:30:00">22:30</option>
+			   <option value="23:00:00">23:00</option>
+               <option value="23:30:00">23:30</option>
+              </select><br/> 
+			휴무일 *<br> &nbsp; <input type="text"  id="holiday_date" name="holiday_date" value="<%=row_holiday.holiday_date%>" placeholder="ex)2016-04-02"><br/>
+            업종 *<br> &nbsp; 
+            <select name="restaurant_type" id="restaurant_type" value="<%=row.restaurant_type%>">
+               <option value="양식">양식</option>
+               <option value="중식">중식</option>
+               <option value="일식">일식</option>
+               <option value="한식">한식</option
+			   <option value="분식">분식</option>
+			   <option value="기타">기타</option>
+            </select><br/>
+            주소 *<br> &nbsp; <input type="text" name="restaurant_address" id="restaurant_address"value="<%=row.restaurant_address%>"><br/>
+            전화번호 *<br> &nbsp; <input type="text" name="restaurant_tel" id="restaurant_tel" value="<%=row.restaurant_tel%>"><br/>
+            소개 *<br> &nbsp; <input type="text" name="restaurant_introduce" size=50 value="<%=row.restaurant_introduce%>"><br/><br/>
+            Deposit 규정등록 *<br> &nbsp;
+         ▶ 총 주문가격의 <input type=text" name="restaurant_deposit_menu" id="restaurant_deposit_menu" value="<%=row.restaurant_deposit_menu%>"> %<br/><br/>
+         ▶ 고객이 메뉴 선택하지 않을 시 인원수 x <input type=text" name="restaurant_deposit_member"   id="restaurant_deposit_member" value="<%=row.restaurant_deposit_member%>">원<br/><br/>
+            레스토랑 사진 *<br> &nbsp;<input type="file" name="restaurant_picture" multiple="multiple" accept="image/*"><br/><br/>
+            <button type="submit" >저장</button>
+            <button type="reset" onClick="resetForm()" name="reset" >취소</button><br/><br/>
+            </center>
+            </form>
+      </div>
+      <p>메뉴판 등록</p>
+      <div >
+      <form method="POST" enctype="multipart/form-data" action="/OwnerPage/menu" name="menu_info" id="menu_info" onsubmit="return onWriteSubmitmenu(this);">
+      <center>
+            메뉴판 등록  *<br/> 
+            <input type="file" name="menu_picture" id="menu_picture" multiple="multiple" accept="image/*" /> <br/><br/>      
+            <button type="submit">저장</button>
+            <button type="reset" name="return" >취소</button><br/><br/>
+            
+       </center>
+      </form>
+      </div>
+      
+      
+</div>
+</center>
+</body>
+</html>
+<!---- 로그아웃 및 홈버튼 ---->
+<script type="text/javascript">
+	$('#home').on('click',function() {
+		$(location).attr('href', 'http://127.0.0.1:3000/ownerMain');
+	});
+	$('#logout').on('click',function() {
+		$(location).attr('href', 'http://127.0.0.1:3000/logout');
+	});
+$("#restaurant_opening_time").val("<%=row.restaurant_opening_time%>").attr("selected", "selected");
+$("#restaurant_closing_time").val("<%=row.restaurant_closing_time%>").attr("selected", "selected");
+$("#restaurant_type").val("<%=row.restaurant_type%>").attr("selected", "selected");
+</script>
