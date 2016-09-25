@@ -18,7 +18,7 @@ module.exports = function(app){
   	    callback(null, './public/images/menu');
   	  },
   	  filename: function (req, file, callback) {
-  	    callback(null, file.originalname + Date.now());
+  	    callback(null, Date.now() + '_' +  file.originalname);
   	  }
   	});
   var restaurant_storage	=	multer.diskStorage({
@@ -26,7 +26,7 @@ module.exports = function(app){
   	    callback(null, './public/images/restaurant');
   	  },
   	  filename: function (req, file, callback) {
-  	    callback(null, file.originalname + '-' + Date.now());
+  	    callback(null, Date.now() + '_' + file.originalname );
   	  }
   	});
   var restaurant_upload = multer({ storage : restaurant_storage }).array('restaurant_picture',10);
