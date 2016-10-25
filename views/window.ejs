@@ -61,7 +61,7 @@
       <div id='body'>
         <div id='menu'>
           <ul>
-            <% for(var i=0;i<rows.length-1;i++){ %>
+            <% for(var i=0;i<rows.length-5;i++){ %>
             <li>
               <%= rows[i].menu_name %> <%= rows[i].price %> <%= rows[i].menu_descriptional %>
             </li>
@@ -108,7 +108,20 @@
         </ul>
 
         <div id='report'>
-        	레스토랑 정보 표시!
+          <ul>
+            <li>
+              전화번호 : <%= rows[rows.length-4] %>
+            </li>
+            <li>
+              opening time : <%= rows[rows.length-3] %>
+            </li>
+            <li>
+              closing time : <%= rows[rows.length-2] %>
+            </li>
+            <li>
+              <%= rows[rows.length-1] %>
+            </li>
+          <ul>
         </div>
         <%if(user.auth=='success'){%>
         <input type="button" value="예약" id="reservation" style="cursor:pointer"  onclick="location.href='http://127.0.0.1:3000/reservation?no='+<%= rows[rows.length-1] %>";>

@@ -15,23 +15,26 @@ module.exports = function(app){
   connection.connect();
 
   router.get('/:res_name/:res_addr', function(req, res){
-    var restaurant_no;
-    var sql = "SELECT restaurant_no from restaurant where restaurant_address like '%"+req.params.res_addr+"%' and restaurant_name like '%"+req.params.res_name+"%'";
-        connection.query(sql, function(err, rows, fields) {
-          restaurant_no = rows[0].restaurant_no;
-        });
+    var sql = "SELECT * from restaurant where restaurant_address = '"+req.params.res_addr+"' and restaurant_name = '"+req.params.res_name+"';";
 
-    var description;
-    console.log(req.params.res_name);
-    console.log(req.params.res_addr);
-    // res.sendFile(path.join(__dirname,'/public/enter_key.png'));
-    var sql = "SELECT * from menu";
-    connection.query(sql, function(err, rows, fields) {
-      rows.push(restaurant_no);
-      res.render('window',{user:req.user, rows:rows});
-
+    readData(sql,function(row){
+      var sql = "SELECT * from menu where restaurant_no = '"+row[0].restaurant_no+"';";
+      connection.query(sql, function(err, rows, fields) {
+        rows.push(row[0].restaurant_no);
+        rows.push(row[0].restaurant_tel);
+        rows.push(row[0].restaurant_opening_time);
+        rows.push(row[0].restaurant_closing_time);
+        rows.push(row[0].restaurant_introduce);
+        res.render('window',{user:req.user, rows:rows});
+      });
     });
   });
+
+  function readData(sql,callback){
+    connection.query(sql, function(err, rows, fields) {
+      callback(rows);
+    });
+  }
 
   router.get('/search/:key1/:key2/:index', function(req, res){
     var index = (req.params.index-1)*5;
