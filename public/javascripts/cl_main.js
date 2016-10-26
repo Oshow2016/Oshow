@@ -96,7 +96,7 @@ function list(data){
 		}
 
 		bottom.append('| ');
-		for(var i=0;i<data[data.length-1]/5;i++){
+		for(var i=0;i<data[data.length-1]/4;i++){
 			if(i==0) {
 					bottom.append("<a href='#' class='no' style='color:red'> "+(i+1)+"</a> |");
 			}
@@ -107,8 +107,9 @@ function list(data){
 
 		$('.no').on('click',function (event) {
 				event.preventDefault();
-				var no = this.innerHTML;
+				var no = $(this).text();
 				var bono = bottom.children().length;
+
 				$.ajax({
             url:"http://127.0.0.1:3000/clientMain/search/"+keyword1+"/"+keyword2+"/"+no,
             success:function(data){
@@ -117,15 +118,12 @@ function list(data){
 									$('#result').children().append("<a href='#' class='list'><li class='info'>"+data[i].restaurant_name+"<br>"+
 											data[i].restaurant_address+"</li></a>");
 								}
+
 								var bo = bottom.children();
 								for(var i=0;i<bono;i++){
-									if (bo[i].style.color=='red') {
 										bo[i].style.color='black'
-									}
-									if ((i+1)==no) {
-										bo[i].style.color='red'
-									}
 								}
+								bo[no-1].style.color='red'
 								list_click();
             }
         })
@@ -140,13 +138,18 @@ function list_click(){
 	$('.list').on('click',function (event) {
 			var res_name = this.innerHTML.substring(17,this.innerHTML.indexOf("<br>"));
 			var res_addr = this.innerHTML.substring(this.innerHTML.indexOf("<br>")+4,this.innerHTML.indexOf("</li>"));
+			res_name = res_name.replace("&amp;","&");
+			res_name = res_name.replace("&quot;",'"');
+			res_name = res_name.replace("&lt;","<");
+			res_name = res_name.replace("&gt;",">");
+
 			small_window(res_name,res_addr);
 	});
 }
 
 function map(data){
 
-	$('#result').children().append('<div id="map" style="width:510px;height:370px;left:-0.1px;top:0.1px;position:absolute;"></div>');
+	$('#result').children().append('<div id="map" style="width:490px;height:320px;left:-0.1px;top:0.1px;position:absolute;"></div>');
 
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션

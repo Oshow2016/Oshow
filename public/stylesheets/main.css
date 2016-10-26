@@ -212,11 +212,13 @@ body{
 }
 
 .result{
-	width: 450px;
-	height: 310px;
+	width: 500px;
+	height: 320px;
 	border:5px solid #CCC;
-	padding:30px;
-	left:-1%;
+	padding-left:34px;
+	padding-right:30px;
+	padding-bottom:30px;
+	padding-top:48px;
   top:45%;
   position: absolute;
 	animation:fadeIn 1s;
