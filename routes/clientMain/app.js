@@ -26,6 +26,7 @@ module.exports = function(app){
         rows.push(row[0].restaurant_opening_time);
         rows.push(row[0].restaurant_closing_time);
         rows.push(row[0].restaurant_introduce);
+        rows.push(row[0].restaurant_no);
         res.render('window',{user:req.user, rows:rows});
       });
     });
