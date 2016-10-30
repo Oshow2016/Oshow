@@ -5,6 +5,8 @@ var current_longitude;
 var submit = $('input:image');
 var search = $('#search');
 var bottom = $('#bottom');
+var global_name_addr = [];
+var global_count=0;
 
 if(navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position) {
@@ -161,60 +163,94 @@ function map(data){
 	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 	var mapTypeControl = new daum.maps.MapTypeControl();
 
-	// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new daum.maps.services.Geocoder();
+		// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new daum.maps.services.Geocoder();
 
-var marker = new daum.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-    infowindow = new daum.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+	var marker = new daum.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+	    infowindow = new daum.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
-// 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
-searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+	// 현재 지도 중심좌표로 주소를 검색해서 주변 레스토랑을 표시합니다
+	searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
-// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-daum.maps.event.addListener(map, 'click', function(mouseEvent) {
-    searchDetailAddrFromCoords(mouseEvent.latLng, function(status, result) {
-        if (status === daum.maps.services.Status.OK) {
-            var detailAddr = !!result[0].roadAddress.name ? '<div>도로명주소 : ' + result[0].roadAddress.name + '</div>' : '';
-            detailAddr += '<div>지번 주소 : ' + result[0].jibunAddress.name + '</div>';
+	function searchAddrFromCoords(coords, callback) {
+	    // 좌표로 행정동 주소 정보를 요청합니다
+	    geocoder.coord2addr(coords, callback);
+	}
 
-            var content = '<div class="bAddr">' +
-                            '<span class="title">법정동 주소정보</span>' +
-                            detailAddr +
-                        '</div>';
+	// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+	function displayCenterInfo(status, result) {
+	    if (data == null) {
+					$.ajax({
+	            url:"http://127.0.0.1:3000/clientMain/search/all/"+result[0].fullName,
+	            success:function(data){
 
-            // 마커를 클릭한 위치에 표시합니다
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
+								// 주소-좌표 변환 객체를 생성합니다
+								var geocoder = new daum.maps.services.Geocoder();
 
-            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-        }
-    });
-});
+								for (var i = 0; i < data.length; i++) {
+									global_name_addr.push({'name':data[i].restaurant_name,'addr':data[i].restaurant_address});
+									console.log(data[i].restaurant_name);
+								}
 
-// 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
-daum.maps.event.addListener(map, 'idle', function() {
-    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-});
+								for (var i = 0; i < data.length; i++) {
+									// 주소로 좌표를 검색합니다
+									geocoder.addr2coord(global_name_addr[i].addr, function(status, result) {
 
-function searchAddrFromCoords(coords, callback) {
-    // 좌표로 행정동 주소 정보를 요청합니다
-    geocoder.coord2addr(coords, callback);
-}
+									    // 정상적으로 검색이 완료됐으면
+									     if (status === daum.maps.services.Status.OK) {
+									        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
 
-function searchDetailAddrFromCoords(coords, callback) {
-    // 좌표로 법정동 상세 주소 정보를 요청합니다
-    geocoder.coord2detailaddr(coords, callback);
-}
+									        // 결과값으로 받은 위치를 마커로 표시합니다
+									        var marker = new daum.maps.Marker({
+									            map: map,
+									            position: coords
+									        });
 
-// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-function displayCenterInfo(status, result) {
-    if (status === daum.maps.services.Status.OK) {
-        var infoDiv = document.getElementById('centerAddr');
-        infoDiv.innerHTML = result[0].fullName;
-    }
-}
+													for (var j = 0; j < global_name_addr.length; j++) {
+														var sp = global_name_addr[j].addr.split(' ');
+
+															if(result.addr[0].subAddress!='0'){
+																if(sp[3]==result.addr[0].mainAddress+'-'+result.addr[0].subAddress){
+																		var name = global_name_addr[j].name;
+																		var addr = global_name_addr[j].addr;
+																		break;
+																}
+															}else{
+																if(sp[3]==result.addr[0].mainAddress){
+																		var name = global_name_addr[j].name;
+																		var addr = global_name_addr[j].addr;
+																		break;
+																}
+															}
+
+													}
+
+									        // 인포윈도우로 장소에 대한 설명을 표시합니다
+									        var infowindow = new daum.maps.InfoWindow({
+									            content: '<div class="res_info" style="cursor:pointer; width:150px;text-align:center;padding:6px 0;" name="'+name+'" addr="'+addr+'">'+name+'</div>'
+									        });
+									        infowindow.open(map, marker);
+
+													// 마커에 마우스아웃 이벤트를 등록합니다
+													if (global_count+1==global_name_addr.length) {
+														$('.res_info').on('click',function(){
+															small_window($(this).attr('name'),$(this).attr('addr'));
+														});
+														for (var j = 0; j < global_name_addr.length; j++) {
+															global_name_addr.pop();
+														}
+														global_count=0;
+													} else{
+															global_count++;
+													}
+
+												}
+									});
+								}
+	          }
+	        })
+	    }
+	}
 
 	// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
 	// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
@@ -243,16 +279,20 @@ function displayCenterInfo(status, result) {
 
 		        // 인포윈도우로 장소에 대한 설명을 표시합니다
 		        var infowindow = new daum.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+data[0].restaurant_name+'</div>'
+		            content: '<div class="res_info"  style="width:150px;text-align:center;padding:6px 0;">'+data[0].restaurant_name+'</div>'
 		        });
 		        infowindow.open(map, marker);
 
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
 
+						for (var i = 0; i < global_count+1; i++) {
+							global_name_addr.pop();
+						}
+
 						// 마커에 마우스아웃 이벤트를 등록합니다
-						daum.maps.event.addListener(marker, 'click', function() {
-								small_window(data[0].restaurant_name,data[0].restaurant_address)
+						$('.res_info').on('click',function(){
+							small_window(data[0].restaurant_name,data[0].restaurant_address)
 						});
 		    }
 			});

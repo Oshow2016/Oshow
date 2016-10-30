@@ -407,3 +407,7 @@ h1{
 #reservate{
 	visibility: hidden;
 }
+
+.res_info:hover { 
+    background-color: yellow;
+}

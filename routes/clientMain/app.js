@@ -34,8 +34,7 @@ module.exports = function(app){
 
   function readData(sql,callback){
     connection.query(sql, function(err, rows, fields) {
-
-      callback(rows);
+        callback(rows);
     });
   }
 
@@ -60,6 +59,15 @@ module.exports = function(app){
             }
             res.send(result);
           }
+      });
+  });
+
+  router.get('/search/all/:key', function(req, res){
+      var sql = "SELECT restaurant_name , restaurant_address from restaurant where restaurant_address like '%"+req.params.key+"%';";
+
+      connection.query(sql, function(err, rows, fields) {
+          console.log(rows);
+          res.send(rows);
       });
   });
 
