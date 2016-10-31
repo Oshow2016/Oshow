@@ -16,8 +16,6 @@ module.exports = function(app){
 
   router.get('/:res_name/:res_addr', function(req, res){
     var sql = "SELECT * from restaurant where restaurant_address = '"+req.params.res_addr+"' and restaurant_name = '"+req.params.res_name+"';";
-  console.log(req.params.res_addr);
-  console.log(req.params.res_name);
     readData(sql,function(row){
       var sql = "SELECT * from menu where restaurant_no = '"+row[0].restaurant_no+"';";
       connection.query(sql, function(err, rows, fields) {

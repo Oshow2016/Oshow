@@ -11,26 +11,27 @@
 #R_INFO a:hover { color:#defcfa; text-decoration:underline; }
 
 .header{
-	float: right;
-	margin-top:30px;
-	margin-right:10px;
-	width:100px;
-	height:30px;
-	border:none;
-	background-color: #CCC;
-	color: white;
-	border:1px solid #50b4ff;
-  	text-align: center;
-  	text-decoration: none;
-  	display: inline-block;
-  	font-size: 16px;
+   float: right;
+   margin-top:30px;
+   margin-right:10px;
+   width:100px;
+   height:30px;
+   border:none;
+   background-color: #CCC;
+   color: white;
+    border: 1px solid #c1c1c1;
+     text-align: center;
+     text-decoration: none;
+     font-size: 16px;
+   border-radius: 4px;
+
 }
 #restaurant_info{
-	padding:10px
-	margin-top:60px;
-	padding: 100px;
-	font:  "Lucida Grande", Helvetica, Arial, sans-serif;
-	text-align:center;
-	color:#ffffff;
-	
+   padding:10px
+   margin-top:60px;
+   padding: 100px;
+   font:  "Lucida Grande", Helvetica, Arial, sans-serif;
+   text-align:center;
+   color:#ffffff;
+
 }

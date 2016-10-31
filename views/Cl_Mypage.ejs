@@ -2,81 +2,81 @@
 <html>
 <title>OSHOW</title>
 <head>
-	<meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
-  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<link rel='stylesheet' href='/stylesheets/mypage.css' />
-	 <link type="text/css" href="stylesheets/main.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel='stylesheet' href='/stylesheets/mypage.css' />
+   <link type="text/css" href="stylesheets/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
-	   <div id="header">
- 		 <input type="button" id="logout" value="LogOut" class="header">
- 		 <input type="button" id="home" value="Home"  class="header">
-		</div>
-		 <% if (info[0].auth!='success'> 0) { %>
-	  <div class="alert alert-danger">이메일을 인증하지 않았습니다. 이메일로 전송한 인증코드를 확인하세요.</div>
-	  <% } %>
-	<table>
-		​<tr>
-		<td >
-			<img src='<%= info[0].fame_img%>' class="img-circle"/>
-		</td>
-		<td >
-			쇼 율 : <% if(result2.length==0){ %>
-							<%= 0 %>
-							<% }else{ %>
-								<%= showCount*100/result2.length%>
-								<%} %> %
-			쇼 :	<%=showCount%>
-			노 쇼 : <%= result2.length-showCount%>
-		</td>
-		<td >
-			<%= info[0].customer_name%>님 <p />
-			현재 <%= info[0].fame_name %> 등급 입니다.
-		</td>
-		​</tr>
-		<tr>
-			<td colspan="3">
-				<div class="row">
-					<!-- Navigation Buttons -->
-					<div class="col-md-3">
-						<ul class="nav nav-pills nav-stacked" id="myTabs">
-							<li class="active"><a href="#present_reservation" data-toggle="pill">예약 현황</a></li>
-							<li><a href="#latest_used_list" data-toggle="pill"	>최근 이용 내역 조회</a></li>
-							<li><a href="#personal_information" data-toggle="pill" onclick="">개인정보관리</a></li>
-						</ul>
-					</div>
-					<!-- Content -->
-					<div class="col-md-9">
-						<div class="tab-content">
-							<div class="tab-pane active" id="present_reservation">
-								<% include ./Cl_My_01.ejs	%>
-							</div>
-							<div class="tab-pane" id="latest_used_list">
-								<% include ./Cl_My_02.ejs	%>
-							</div>
-							<div class="tab-pane" id="personal_information">
-								<% include ./Cl_My_03.ejs	%>
-							</div>
-						</div>
-					</div>
-				</div>
-			</td>
-		</tr>
-	</table>
+     <div id="header">
+       <input type="button" id="logout" value="LogOut" class="header">
+       <input type="button" id="home" value="Home"  class="header">
+     </div>
+      <% if (info[0].auth!='success') { %>
+    <div class="alert alert-danger">이메일을 인증하지 않았습니다. 이메일로 전송한 인증코드를 확인하세요.</div>
+    <% } %>
+  <table>
+     ​<tr>
+     <td >
+        <img src='<%= info[0].fame_img%>' class="img-circle"/>
+     </td>
+     <td >
+        쇼 율 : <% if(result2.length==0){ %>
+                    <%= 0 %>
+                    <% }else{ %>
+                       <%= (result2.length-showCount)*100 / result2.length%>
+                       <%} %> %
+        쇼 : <%= result2.length-showCount%>
+        노 쇼 : <%=showCount%>
+     </td>
+     <td >
+        <%= info[0].customer_name%>님 <p />
+        현재 <%= info[0].fame_name %> 등급 입니다.
+     </td>
+     ​</tr>
+     <tr>
+        <td colspan="3">
+           <div class="row">
+              <!-- Navigation Buttons -->
+              <div class="col-md-3">
+                 <ul class="nav nav-pills nav-stacked" id="myTabs">
+                    <li class="active"><a href="#present_reservation" data-toggle="pill">예약 현황</a></li>
+                    <li><a href="#latest_used_list" data-toggle="pill"   >최근 이용 내역 조회</a></li>
+                    <li><a href="#personal_information" data-toggle="pill" onclick="">개인정보관리</a></li>
+                 </ul>
+              </div>
+              <!-- Content -->
+              <div class="col-md-9">
+                 <div class="tab-content">
+                    <div class="tab-pane active" id="present_reservation">
+                       <% include ./Cl_My_01.ejs   %>
+                    </div>
+                    <div class="tab-pane" id="latest_used_list">
+                       <% include ./Cl_My_02.ejs   %>
+                    </div>
+                    <div class="tab-pane" id="personal_information">
+                       <% include ./Cl_My_03.ejs   %>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </td>
+     </tr>
+  </table>
 </body>
 </html>
 <script type="text/javascript">
 $('#home').on('click',function() {
-		$(location).attr('href', 'http://127.0.0.1:3000/');
+     $(location).attr('href', 'http://127.0.0.1:3000/');
 });
 $('#logout').on('click',function() {
-		$(location).attr('href', 'http://127.0.0.1:3000/logout');
+     $(location).attr('href', 'http://127.0.0.1:3000/logout');
 });
 </script>

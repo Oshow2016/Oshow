@@ -14,6 +14,9 @@ module.exports = function(app){
   });
   connection.connect();
 
+  var menu;
+  var name;
+
   router.get('/search/:date/:index', function(req, res){
     var arr = new Array();
     var sql = "select * from reservation where reservation_date = '"+req.params.date+"';";
@@ -43,22 +46,40 @@ module.exports = function(app){
         length = rows.length;
     });
 
-    var sql = "SELECT table_no,restaurant_no,reservation_date,reservation_time,reservation_menu_request from reservation where reservation_date = '"+req.query.date+"' order by reservation_time limit 7;";
+    var sql = "SELECT * from reservation where reservation_date = '"+req.query.date+"' order by reservation_time limit 7;";
     connection.query(sql, function(err, rows, fields) {
       rows.push(length);
       res.send(rows);
     });
   });
 
-  router.get('/specific', function(req, res){
-    var sql = "SELECT reservation_menu_request from reservation where reservation_time = '"+req.query.time+"';";
+  router.get('/specific/:time/:no', function(req, res){
+    var sql = "SELECT * from reservation_menu where reservation_no = '"+req.params.no+"';";
     connection.query(sql, function(err, rows, fields) {
-      // console.log(rows);
-      // res.send(rows);
-      console.log(rows);
+      menu = rows[0].menu_name;
+      console.log(menu);
+    });
+
+    sql = "select customer_name from customers where customer_id = (SELECT customer_id from reservation where reservation_no = '"+req.params.no+"');";
+    connection.query(sql, function(err, rows, fields) {
+      name = rows[0].customer_name;
+      console.log(name);
+    });
+
+    sql = "SELECT * from reservation where reservation_no = '"+req.params.no+"';";
+    connection.query(sql, function(err, rows, fields) {
+      while (true) {
+        if(menu.length!=0&&name.length!=0){
+          rows.push(menu);
+          rows.push(name);
+          break;
+        }
+      }
       res.render('specific_menu',{rows:rows});
     });
   });
+
+
 
   router.get('/', function(req, res){
     var length;
@@ -74,7 +95,7 @@ module.exports = function(app){
       length = rows.length;
     });
 
-    sql = "SELECT table_no,reservation_date,reservation_time from reservation where reservation_date = '"+date+"' order by reservation_time limit 7;";
+    sql = "SELECT * from reservation where reservation_date = '"+date+"' order by reservation_time limit 7;";
 
     connection.query(sql, function(err, rows, fields) {
         rows.push(length);

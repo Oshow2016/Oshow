@@ -45,14 +45,15 @@ module.exports = function(app){
        // 앞으로 datas에는  owner가 레스토랑 등록했을 때 부여 된 restaurant_no값 들어가야 함
         // owner_id에 restaurant_no 컬럼이 null 이면 아무것도 안보여짐
         // null 아닌 경우 해당 restaurant_no에 대한 정보 보여지도록
-         var owner_query = connection.query('select restaurant_no,auth from owners where owner_id=?', id, function(err_owner,row_owner){
+         var owner_query = connection.query('select restaurant_no from owners where owner_id=?', id, function(err_owner,row_owner){
         var datas = row_owner[0].restaurant_no;
-        var owner_auth = row_owner[0].auth;
+        var owner_auth = req.session.passport.user.auth;
+
         console.log("datas : " + datas)
          /* 레스토랑 정보 입력한 적이 없는 owner인 경우
           row가 null이면 메뉴,휴무일도 등록이 될 수 없으므로 null */
         if (datas == null){
-           res.render('Ow_Rg_01', {title:"OSHOW 레스토랑 정보등록", owner_auth:"", row:"", row_menu:"", row_holiday:""});
+           res.render('Ow_Rg_01', {title:"OSHOW 레스토랑 정보등록", owner_auth, row:"", row_menu:"", row_holiday:""});
         }
         else
            {

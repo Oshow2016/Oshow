@@ -1,66 +1,68 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
- 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    <meta charset="utf-8">
-    <link type="text/css" href="stylesheets/main2.css" rel="stylesheet">
-    <script src="/jquery/jquery.js"></script>
-    <script src="http://dinbror.dk/bpopup/assets/jquery.easing.1.3.js"></script>
-    <script src="http://dinbror.dk/bpopup/assets/jquery.bpopup-0.9.4.min.js"></script>
-  </head>
+ <head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+   <meta charset="utf-8">
+   <link type="text/css" href="stylesheets/main2.css" rel="stylesheet">
+   <script src="/jquery/jquery.js"></script>
+   <script src="http://dinbror.dk/bpopup/assets/jquery.easing.1.3.js"></script>
+   <script src="http://dinbror.dk/bpopup/assets/jquery.bpopup-0.9.4.min.js"></script>
+ </head>
 
-  <body>
-  	<% if (message.length > 0) { %>
-  	<div class="alert alert-danger"><%= message %></div>
-  	<% } %>
-  	
-    <div id="header">
-      <input type="button" value="마이페이지" id="mypage">
-      <input type="button" value="로그아웃" id="logout">
-    </div>
+ <body>
+    <% if (message.length > 0) { %>
+    <div class="alert alert-danger"><%= message %></div>
+    <% } %>
 
-    <div id="days">
-      <input type="image" src="삼각형.png" id="pre">
-      <input type="image" src="삼각형.png" id="fore">
-    </div>
+<div id="header">
+ <input type="button" id="logout" value="LogOut" class="header">
+ <input type="button" id="mypage" value="MyPage" class="header">
+</div>
 
-    <div id="contents">
-      <div id="list">
-        <ul>
-          <li>
-            <p>Table</p>
-            <p>Time</p>
-            <p>예약정보</p>
-            <p>SHOW</p>
-          </li>
-          <% for(var i=0;i<rows.length-1;i++){ %>
-            <li class='list'>
-                <p><%= rows[i].table_no %></p>
-                <p><%= rows[i].reservation_time %></p>
-                <p><button class='specific'>상세보기</button></p>
-                <div id='show'>
-                  <label>Oshow</label>
-                    <input type='radio' name=i value='oshow' checked='checked'>
-                  <label>NOshow</label>
-                    <input type='radio' name=i value='noshow'>
-                </div>
-            </li>
-          <% } %>
-          <input type="button" value="저장" id="save">
-        </ul>
-      </div>
-    </div>
+   <div id="days">
+     <input type="image" src="삼각형.png" id="pre">
+     <input type="image" src="삼각형.png" id="fore">
+   </div>
 
-    <div id="bottom">
-      |
-        <% for(var i=0;i<parseInt(rows[rows.length-1]/7)+1;i++){ %>
-          <a href="#" class="no"> <%= i+1 %> </a>|
-        <% } %>
-    </div>
+   <div id="contents">
+     <div id="list">
+       <ul>
+         <li>
+           <p>No</p>
+           <p>Table</p>
+           <p>Time</p>
+           <p>예약정보</p>
+           <p>SHOW</p>
+         </li>
+         <% for(var i=0;i<rows.length-1;i++){ %>
+           <li class='list'>
+               <p><%= rows[i].reservation_no %></p>
+               <p><%= rows[i].table_no %></p>
+               <p><%= rows[i].reservation_time %></p>
+               <p><button class='specific'>상세보기</button></p>
+               <div id='show'>
+                 <label>Oshow</label>
+                   <input type='radio' name=i value='oshow' checked='checked'>
+                 <label>NOshow</label>
+                   <input type='radio' name=i value='noshow'>
+               </div>
+           </li>
+         <% } %>
+         <input type="button" value="저장" id="save">
+       </ul>
+     </div>
+   </div>
 
-    <div id='spcific_popup'></div>
+   <div id="bottom">
+     |
+       <% for(var i=0;i<parseInt(rows[rows.length-1]/7)+1;i++){ %>
+         <a href="#" class="no"> <%= i+1 %> </a>|
+       <% } %>
+   </div>
 
-    <script type="text/javascript" src="javascripts/ow_main.js"></script>
-  </body>
+   <div id='spcific_popup'></div>
+
+   <script type="text/javascript" src="javascripts/ow_main.js"></script>
+ </body>
 </html>

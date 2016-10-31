@@ -1,53 +1,54 @@
 body {
-	padding: 50px;
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-	position:absolute;
-	top:50%;
-	left:50%;
-	transform:translate(-50%, -50%)
+   padding: 50px;
+   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+   position:absolute;
+   top:50%;
+   left:50%;
+   transform:translate(-50%, -50%)
 }
 
 a {
-	color: #00B7FF;
+   color: #00B7FF;
 }
 
 
 table {
-	border-collapse:separate;
-	padding:0;
+   border-collapse:separate;
+   padding:0;
 
-	width: 960px;
-	border-spacing:0 10px;
+   width: 960px;
+   border-spacing:0 10px;
 }
 td,th {
-	border:10px solid #fff;
-	border-right:none;
+   border:10px solid #fff;
+   border-right:none;
 }
 
 td:last-child,th:last-child{border:10px solid #fff;}
 
 .tab-content{
-	width: 700px;
-	height: 300px;
-	padding: 10px;
-	border:1px solid #bbb;
-	overflow: auto;
+   width: 700px;
+   height: 300px;
+   padding: 10px;
+   border:1px solid #bbb;
+   overflow: auto;
 }
 .reservation_card{
-	background-color: #B4B4B4;
-	padding: 10px;
-	margin: 10px;
+   background-color: #B4B4B4;
+   padding: 10px;
+   margin: 10px;
 }
 
 .reservation_card0{
-	border-color: #FF0000;
-	border : solid 10px #FF0000;
-	padding: 10px;
-	margin: 10px;
+   border-color: #0100FF;
+   border : solid 10px #0100FF;
+   padding: 10px;
+   margin: 10px;
 }
-
 .reservation_card1{
-	background-color: #A0A0A0;
-	padding: 10px;
-	margin: 10px;
+   border-color: #FF0000;
+   border : solid 10px #FF0000;
+   padding: 10px;
+   margin: 10px;
+}
 }
